@@ -21,26 +21,29 @@ class PagesTable
             ->reorderable('sort_order')
             ->columns([
                 TextColumn::make('title')
-                    ->label('Judul')
+                    ->label(__('Title'))
                     ->searchable(),
                 TextColumn::make('slug')
+                    ->label(__('Slug'))
                     ->searchable()
                     ->toggleable(),
                 TextColumn::make('status')
+                    ->label(__('Status'))
                     ->badge(),
                 IconColumn::make('show_in_menu')
-                    ->label('Di Menu')
+                    ->label(__('In Menu'))
                     ->boolean(),
                 TextColumn::make('user.name')
-                    ->label('Penulis')
+                    ->label(__('Author'))
                     ->toggleable(),
                 TextColumn::make('updated_at')
-                    ->label('Diperbarui')
+                    ->label(__('Updated At'))
                     ->dateTime()
                     ->sortable(),
             ])
             ->filters([
                 SelectFilter::make('status')
+                    ->label(__('Status'))
                     ->options(PageStatus::class),
             ])
             ->recordActions([

@@ -26,9 +26,15 @@ class MediaResource extends Resource
 
     protected static ?int $navigationSort = 4;
 
-    protected static ?string $modelLabel = 'media';
+    public static function getModelLabel(): string
+    {
+        return __('media');
+    }
 
-    protected static ?string $pluralModelLabel = 'media';
+    public static function getPluralModelLabel(): string
+    {
+        return __('media');
+    }
 
     protected static ?string $recordTitleAttribute = 'file_name';
 

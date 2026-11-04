@@ -16,7 +16,7 @@ class MediaForm
         return $schema
             ->components([
                 FileUpload::make('file_path')
-                    ->label('Berkas')
+                    ->label(__('Media File'))
                     ->required()
                     ->disk(self::DISK)
                     ->directory('media')
@@ -36,8 +36,8 @@ class MediaForm
                     ->maxSize(10240)
                     ->columnSpanFull(),
                 TextInput::make('alt_text')
-                    ->label('Teks Alternatif')
-                    ->helperText('Deskripsi singkat gambar untuk aksesibilitas.')
+                    ->label(__('Alternative Text'))
+                    ->helperText(__('Short image description for accessibility.'))
                     ->maxLength(255)
                     ->columnSpanFull(),
             ]);

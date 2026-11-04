@@ -18,7 +18,10 @@ class LatestQuestionsWidget extends TableWidget
 
     protected int|string|array $columnSpan = 'full';
 
-    protected static ?string $heading = 'Pertanyaan Menunggu Jawaban';
+    protected function getTableHeading(): string
+    {
+        return __('Questions Awaiting Answers');
+    }
 
     public function table(Table $table): Table
     {
@@ -28,23 +31,23 @@ class LatestQuestionsWidget extends TableWidget
                 ->where('status', QuestionStatus::Pending)
                 ->latest())
             ->defaultPaginationPageOption(5)
-            ->emptyStateHeading('Tidak ada pertanyaan yang menunggu')
+            ->emptyStateHeading(__('No questions are waiting'))
             ->columns([
                 TextColumn::make('subject')
-                    ->label('Judul')
+                    ->label(__('Title'))
                     ->limit(60),
                 TextColumn::make('name')
-                    ->label('Penanya'),
+                    ->label(__('Asker')),
                 TextColumn::make('topic.name')
-                    ->label('Topik')
+                    ->label(__('Topic'))
                     ->placeholder('-'),
                 TextColumn::make('created_at')
-                    ->label('Dikirim')
+                    ->label(__('Submitted'))
                     ->since(),
             ])
             ->recordActions([
                 Action::make('answer')
-                    ->label('Jawab')
+                    ->label(__('Reply'))
                     ->icon(Heroicon::OutlinedChatBubbleLeftEllipsis)
                     ->url(fn (Question $record): string => QuestionResource::getUrl('view', ['record' => $record])),
             ]);

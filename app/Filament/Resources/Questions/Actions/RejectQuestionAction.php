@@ -18,15 +18,15 @@ class RejectQuestionAction extends Action
     {
         parent::setUp();
 
-        $this->label('Tolak')
+        $this->label(__('Reject'))
             ->icon(Heroicon::OutlinedXCircle)
             ->color('danger')
             ->requiresConfirmation()
-            ->modalHeading('Tolak pertanyaan')
-            ->modalDescription('Pertanyaan yang ditolak tidak akan ditampilkan ke publik.')
+            ->modalHeading(__('Reject question'))
+            ->modalDescription(__('Rejected questions will not be shown to the public.'))
             ->authorize('update')
             ->visible(fn (Question $record): bool => $record->status === QuestionStatus::Pending)
-            ->successNotificationTitle('Pertanyaan ditolak')
+            ->successNotificationTitle(__('Question rejected'))
             ->action(function (Question $record): void {
                 $record->update(['status' => QuestionStatus::Rejected]);
 

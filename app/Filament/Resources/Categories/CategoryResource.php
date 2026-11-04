@@ -33,9 +33,15 @@ class CategoryResource extends Resource
 
     protected static ?int $navigationSort = 2;
 
-    protected static ?string $modelLabel = 'kategori';
+    public static function getModelLabel(): string
+    {
+        return __('category');
+    }
 
-    protected static ?string $pluralModelLabel = 'kategori';
+    public static function getPluralModelLabel(): string
+    {
+        return __('categories');
+    }
 
     protected static ?string $recordTitleAttribute = 'name';
 
@@ -44,7 +50,7 @@ class CategoryResource extends Resource
         return $schema
             ->components([
                 TextInput::make('name')
-                    ->label('Nama')
+                    ->label(__('Name'))
                     ->required()
                     ->maxLength(255)
                     ->live(onBlur: true)
@@ -54,25 +60,26 @@ class CategoryResource extends Resource
                         }
                     }),
                 TextInput::make('slug')
+                    ->label(__('Slug'))
                     ->required()
                     ->maxLength(255)
                     ->alphaDash()
                     ->unique(),
                 Textarea::make('description')
-                    ->label('Deskripsi')
+                    ->label(__('Description'))
                     ->columnSpanFull(),
                 TextInput::make('icon')
-                    ->label('Ikon')
-                    ->helperText('Nama ikon yang dipakai aplikasi Flutter, misalnya "newspaper".')
+                    ->label(__('Icon'))
+                    ->helperText(__('Icon name used by the Flutter app, for example "newspaper".'))
                     ->maxLength(100),
                 TextInput::make('sort_order')
-                    ->label('Urutan')
+                    ->label(__('Order'))
                     ->required()
                     ->integer()
                     ->minValue(0)
                     ->default(0),
                 Toggle::make('is_active')
-                    ->label('Aktif')
+                    ->label(__('Active'))
                     ->default(true),
             ]);
     }
@@ -85,18 +92,19 @@ class CategoryResource extends Resource
             ->reorderable('sort_order')
             ->columns([
                 TextColumn::make('name')
-                    ->label('Nama')
+                    ->label(__('Name'))
                     ->searchable(),
                 TextColumn::make('slug')
+                    ->label(__('Slug'))
                     ->searchable(),
                 TextColumn::make('posts_count')
-                    ->label('Artikel')
+                    ->label(__('Articles'))
                     ->counts('posts'),
                 IconColumn::make('is_active')
-                    ->label('Aktif')
+                    ->label(__('Active'))
                     ->boolean(),
                 TextColumn::make('updated_at')
-                    ->label('Diperbarui')
+                    ->label(__('Updated At'))
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),

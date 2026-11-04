@@ -31,9 +31,15 @@ class UserResource extends Resource
 
     protected static ?int $navigationSort = 2;
 
-    protected static ?string $modelLabel = 'pengguna';
+    public static function getModelLabel(): string
+    {
+        return __('user');
+    }
 
-    protected static ?string $pluralModelLabel = 'pengguna';
+    public static function getPluralModelLabel(): string
+    {
+        return __('users');
+    }
 
     protected static ?string $recordTitleAttribute = 'name';
 
@@ -42,30 +48,30 @@ class UserResource extends Resource
         return $schema
             ->components([
                 TextInput::make('name')
-                    ->label('Nama')
+                    ->label(__('Name'))
                     ->required()
                     ->maxLength(255),
                 TextInput::make('email')
-                    ->label('Email')
+                    ->label(__('Email'))
                     ->email()
                     ->required()
                     ->maxLength(255)
                     ->unique(),
                 Select::make('role')
-                    ->label('Peran')
+                    ->label(__('Role'))
                     ->options(UserRole::class)
                     ->default(UserRole::Editor)
                     ->required(),
                 TextInput::make('password')
-                    ->label('Kata Sandi')
+                    ->label(__('Password'))
                     ->password()
                     ->revealable()
                     ->required(fn (string $operation): bool => $operation === 'create')
                     ->dehydrated(fn (?string $state): bool => filled($state))
                     ->minLength(8)
-                    ->helperText(fn (string $operation): ?string => $operation === 'edit' ? 'Kosongkan jika tidak ingin mengubah kata sandi.' : null),
+                    ->helperText(fn (string $operation): ?string => $operation === 'edit' ? __('Leave empty if you do not want to change the password.') : null),
                 FileUpload::make('avatar')
-                    ->label('Foto')
+                    ->label(__('Photo'))
                     ->image()
                     ->avatar()
                     ->disk('public')
@@ -81,27 +87,27 @@ class UserResource extends Resource
             ->recordTitleAttribute('name')
             ->columns([
                 ImageColumn::make('avatar')
-                    ->label('Foto')
+                    ->label(__('Photo'))
                     ->disk('public')
                     ->circular(),
                 TextColumn::make('name')
-                    ->label('Nama')
+                    ->label(__('Name'))
                     ->searchable(),
                 TextColumn::make('email')
-                    ->label('Email')
+                    ->label(__('Email'))
                     ->searchable(),
                 TextColumn::make('role')
-                    ->label('Peran')
+                    ->label(__('Role'))
                     ->badge(),
                 TextColumn::make('created_at')
-                    ->label('Dibuat')
+                    ->label(__('Created'))
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
                 SelectFilter::make('role')
-                    ->label('Peran')
+                    ->label(__('Role'))
                     ->options(UserRole::class),
             ])
             ->recordActions([

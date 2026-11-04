@@ -13,9 +13,9 @@ enum NavigationGroup implements HasLabel
     public function getLabel(): string
     {
         return match ($this) {
-            self::Content => 'Konten',
-            self::PublicQuestions => 'Pertanyaan Masyarakat',
-            self::System => 'Sistem',
+            self::Content => __('Content'),
+            self::PublicQuestions => __('Public Questions'),
+            self::System => __('System'),
         };
     }
 }

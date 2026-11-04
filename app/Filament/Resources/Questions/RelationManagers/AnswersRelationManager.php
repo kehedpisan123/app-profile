@@ -14,17 +14,27 @@ use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Schemas\Schema;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 
 class AnswersRelationManager extends RelationManager
 {
     protected static string $relationship = 'answers';
 
-    protected static ?string $title = 'Jawaban';
+    public static function getTitle(Model $ownerRecord, string $pageClass): string
+    {
+        return __('Answers');
+    }
 
-    protected static ?string $modelLabel = 'jawaban';
+    protected static function getModelLabel(): ?string
+    {
+        return __('answer');
+    }
 
-    protected static ?string $pluralModelLabel = 'jawaban';
+    protected static function getPluralModelLabel(): ?string
+    {
+        return __('answers');
+    }
 
     public function isReadOnly(): bool
     {
@@ -36,7 +46,7 @@ class AnswersRelationManager extends RelationManager
         return $schema
             ->components([
                 RichEditor::make('body')
-                    ->label('Jawaban')
+                    ->label(__('Answer'))
                     ->required()
                     ->toolbarButtons([
                         ['bold', 'italic', 'underline', 'link'],
@@ -45,9 +55,10 @@ class AnswersRelationManager extends RelationManager
                     ])
                     ->columnSpanFull(),
                 Select::make('status')
+                    ->label(__('Status'))
                     ->options(QuestionAnswerStatus::class)
                     ->default(QuestionAnswerStatus::Draft)
-                    ->helperText('Penanya akan menerima email saat jawaban diterbitkan.')
+                    ->helperText(__('The asker will receive an email when the answer is published.'))
                     ->required(),
             ]);
     }
@@ -59,23 +70,24 @@ class AnswersRelationManager extends RelationManager
             ->defaultSort('created_at', 'desc')
             ->columns([
                 TextColumn::make('body')
-                    ->label('Jawaban')
+                    ->label(__('Answer'))
                     ->formatStateUsing(fn (string $state): string => Str::of($state)->stripTags()->squish()->limit(100)->toString())
                     ->wrap(),
                 TextColumn::make('status')
+                    ->label(__('Status'))
                     ->badge(),
                 TextColumn::make('user.name')
-                    ->label('Petugas')
+                    ->label(__('Officer'))
                     ->placeholder('-'),
                 TextColumn::make('answered_at')
-                    ->label('Diterbitkan')
+                    ->label(__('Published On'))
                     ->dateTime()
                     ->placeholder('-')
                     ->sortable(),
             ])
             ->headerActions([
                 CreateAction::make()
-                    ->label('Tulis jawaban')
+                    ->label(__('Write an answer'))
                     ->mutateDataUsing(function (array $data): array {
                         $data['user_id'] = auth()->id();
 

@@ -35,9 +35,15 @@ class SettingResource extends Resource
 
     protected static ?int $navigationSort = 1;
 
-    protected static ?string $modelLabel = 'pengaturan';
+    public static function getModelLabel(): string
+    {
+        return __('setting');
+    }
 
-    protected static ?string $pluralModelLabel = 'pengaturan situs';
+    public static function getPluralModelLabel(): string
+    {
+        return __('site settings');
+    }
 
     protected static ?string $recordTitleAttribute = 'label';
 
@@ -45,55 +51,66 @@ class SettingResource extends Resource
      * @var array<string, string>
      */
     public const GROUPS = [
-        'general' => 'Umum',
-        'contact' => 'Kontak',
-        'social' => 'Media Sosial',
+        'general' => 'General',
+        'contact' => 'Contact',
+        'social' => 'Social Media',
     ];
+
+    /**
+     * @return array<string, string>
+     */
+    public static function groupOptions(): array
+    {
+        return array_map(
+            fn (string $label): string => __($label),
+            self::GROUPS,
+        );
+    }
 
     public static function form(Schema $schema): Schema
     {
         return $schema
             ->components([
                 TextInput::make('label')
-                    ->label('Label')
+                    ->label(__('Label'))
                     ->required()
                     ->maxLength(255),
                 TextInput::make('key')
-                    ->label('Kunci')
-                    ->helperText('Dipakai aplikasi Flutter, jangan diubah setelah dipakai.')
+                    ->label(__('Key'))
+                    ->helperText(__('Used by the Flutter app. Do not change it after it is in use.'))
                     ->required()
                     ->maxLength(100)
                     ->regex('/^[a-z0-9_]+$/')
                     ->unique()
                     ->disabledOn('edit'),
                 Select::make('group')
-                    ->label('Grup')
-                    ->options(self::GROUPS)
+                    ->label(__('Group'))
+                    ->options(self::groupOptions())
                     ->default('general')
                     ->required(),
                 Select::make('type')
-                    ->label('Tipe')
+                    ->label(__('Type'))
                     ->options(SettingType::class)
                     ->default(SettingType::Text)
                     ->required()
                     ->live(),
                 TextInput::make('value')
-                    ->label('Nilai')
+                    ->label(__('Value'))
                     ->visible(fn (Get $get): bool => self::typeIs($get('type'), SettingType::Text))
                     ->columnSpanFull(),
                 Textarea::make('value')
-                    ->label('Nilai')
+                    ->label(__('Value'))
                     ->rows(4)
                     ->visible(fn (Get $get): bool => self::typeIs($get('type'), SettingType::Textarea))
                     ->columnSpanFull(),
                 Textarea::make('value')
-                    ->label('Nilai (JSON)')
+                    ->label(__('Value (JSON)'))
                     ->rows(6)
                     ->json()
                     ->visible(fn (Get $get): bool => self::typeIs($get('type'), SettingType::Json))
                     ->columnSpanFull(),
                 FileUpload::make('value')
-                    ->label('Gambar')
+                    ->label(__('Image'))
                     ->image()
                     ->disk('public')
                     ->directory('settings')
@@ -102,7 +119,7 @@ class SettingResource extends Resource
                     ->visible(fn (Get $get): bool => self::typeIs($get('type'), SettingType::Image))
                     ->columnSpanFull(),
                 Toggle::make('value')
-                    ->label('Aktif')
+                    ->label(__('Active'))
                     ->visible(fn (Get $get): bool => self::typeIs($get('type'), SettingType::Boolean)),
             ]);
     }
@@ -113,28 +130,28 @@ class SettingResource extends Resource
             ->recordTitleAttribute('label')
             ->defaultGroup(
                 Group::make('group')
-                    ->label('Grup')
-                    ->getTitleFromRecordUsing(fn (Setting $record): string => self::GROUPS[$record->group] ?? Str::headline($record->group)),
+                    ->label(__('Group'))
+                    ->getTitleFromRecordUsing(fn (Setting $record): string => __(self::GROUPS[$record->group] ?? Str::headline($record->group))),
             )
             ->defaultSort('key')
             ->columns([
                 TextColumn::make('label')
-                    ->label('Label')
+                    ->label(__('Label'))
                     ->description(fn (Setting $record): string => $record->key)
                     ->searchable(['label', 'key']),
                 TextColumn::make('value')
-                    ->label('Nilai')
+                    ->label(__('Value'))
                     ->limit(60)
                     ->placeholder('-'),
                 TextColumn::make('type')
-                    ->label('Tipe')
+                    ->label(__('Type'))
                     ->badge()
                     ->color('gray'),
             ])
             ->filters([
                 SelectFilter::make('group')
-                    ->label('Grup')
-                    ->options(self::GROUPS),
+                    ->label(__('Group'))
+                    ->options(self::groupOptions()),
             ])
             ->recordActions([
                 EditAction::make(),

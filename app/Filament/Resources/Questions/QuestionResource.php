@@ -29,9 +29,15 @@ class QuestionResource extends Resource
 
     protected static ?int $navigationSort = 1;
 
-    protected static ?string $modelLabel = 'pertanyaan';
+    public static function getModelLabel(): string
+    {
+        return __('question');
+    }
 
-    protected static ?string $pluralModelLabel = 'pertanyaan';
+    public static function getPluralModelLabel(): string
+    {
+        return __('questions');
+    }
 
     protected static ?string $recordTitleAttribute = 'subject';
 

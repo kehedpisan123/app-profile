@@ -22,48 +22,52 @@ class PostsTable
             ->defaultSort('created_at', 'desc')
             ->columns([
                 ImageColumn::make('image')
-                    ->label('Gambar')
+                    ->label(__('Image'))
                     ->disk('public'),
                 TextColumn::make('title')
-                    ->label('Judul')
+                    ->label(__('Title'))
                     ->searchable()
                     ->limit(60),
                 TextColumn::make('category.name')
-                    ->label('Kategori'),
+                    ->label(__('Category')),
                 TextColumn::make('status')
+                    ->label(__('Status'))
                     ->badge(),
                 IconColumn::make('is_featured')
-                    ->label('Unggulan')
+                    ->label(__('Featured'))
                     ->boolean(),
                 TextColumn::make('user.name')
-                    ->label('Penulis')
+                    ->label(__('Author'))
                     ->toggleable(),
                 TextColumn::make('published_at')
-                    ->label('Terbit')
+                    ->label(__('Published Date'))
                     ->dateTime()
                     ->sortable(),
                 TextColumn::make('view_count')
-                    ->label('Dilihat')
+                    ->label(__('Views'))
                     ->numeric()
                     ->sortable(),
                 TextColumn::make('created_at')
+                    ->label(__('Created'))
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('updated_at')
+                    ->label(__('Updated At'))
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
                 SelectFilter::make('status')
+                    ->label(__('Status'))
                     ->options(PostStatus::class),
                 SelectFilter::make('category')
-                    ->label('Kategori')
+                    ->label(__('Category'))
                     ->relationship('category', 'name')
                     ->preload(),
                 TernaryFilter::make('is_featured')
-                    ->label('Unggulan'),
+                    ->label(__('Featured')),
             ])
             ->recordActions([
                 EditAction::make(),

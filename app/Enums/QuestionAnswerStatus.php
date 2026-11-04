@@ -14,9 +14,9 @@ enum QuestionAnswerStatus: string implements HasColor, HasLabel
     public function getLabel(): string
     {
         return match ($this) {
-            self::Draft => 'Draf',
-            self::Published => 'Terbit',
-            self::Rejected => 'Ditolak',
+            self::Draft => __('Draft'),
+            self::Published => __('Published'),
+            self::Rejected => __('Rejected'),
         };
     }
 

@@ -22,30 +22,31 @@ class QuestionsTable
             ->defaultSort('created_at', 'desc')
             ->columns([
                 TextColumn::make('subject')
-                    ->label('Judul')
+                    ->label(__('Title'))
                     ->searchable()
                     ->limit(60)
                     ->wrap(),
                 TextColumn::make('name')
-                    ->label('Penanya')
+                    ->label(__('Asker'))
                     ->searchable()
                     ->description(fn (Question $record): string => $record->email),
                 TextColumn::make('topic.name')
-                    ->label('Topik')
+                    ->label(__('Topic'))
                     ->placeholder('-'),
                 TextColumn::make('status')
+                    ->label(__('Status'))
                     ->badge(),
                 TextColumn::make('answers_count')
-                    ->label('Jawaban')
+                    ->label(__('Answers'))
                     ->counts('answers'),
                 TextColumn::make('created_at')
-                    ->label('Dikirim')
+                    ->label(__('Submitted'))
                     ->dateTime()
                     ->sortable(),
             ])
             ->filters([
                 SelectFilter::make('topic')
-                    ->label('Topik')
+                    ->label(__('Topic'))
                     ->relationship('topic', 'name')
                     ->preload(),
             ])

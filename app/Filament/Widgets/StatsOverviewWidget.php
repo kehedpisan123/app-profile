@@ -37,19 +37,19 @@ class StatsOverviewWidget extends BaseStatsOverviewWidget
         $newQuestionsThisWeek = Question::query()->where('created_at', '>=', now()->subWeek())->count();
 
         return [
-            Stat::make('Artikel Terbit', Number::format($publishedPosts))
-                ->description(Number::format($draftPosts).' draf')
+            Stat::make(__('Published Articles'), Number::format($publishedPosts))
+                ->description(__(':count drafts', ['count' => Number::format($draftPosts)]))
                 ->descriptionIcon(Heroicon::OutlinedPencilSquare)
                 ->color('primary'),
-            Stat::make('Total Dilihat', Number::format($totalViews))
-                ->description('Akumulasi pembaca artikel')
+            Stat::make(__('Total Views'), Number::format($totalViews))
+                ->description(__('Accumulated article readers'))
                 ->descriptionIcon(Heroicon::OutlinedEye)
                 ->color('gray'),
-            Stat::make('Pertanyaan Menunggu', Number::format($pendingQuestions))
-                ->description(Number::format($newQuestionsThisWeek).' masuk 7 hari terakhir')
+            Stat::make(__('Pending Questions'), Number::format($pendingQuestions))
+                ->description(__(':count received in the last 7 days', ['count' => Number::format($newQuestionsThisWeek)]))
                 ->descriptionIcon(Heroicon::OutlinedInboxArrowDown)
                 ->color($pendingQuestions > 0 ? 'warning' : 'success'),
-            Stat::make('Pertanyaan Dijawab', Number::format($answeredQuestions))
+            Stat::make(__('Answered Questions'), Number::format($answeredQuestions))
                 ->descriptionIcon(Heroicon::OutlinedCheckBadge)
                 ->color('success'),
         ];

@@ -17,7 +17,10 @@ class LatestPostsWidget extends TableWidget
 
     protected int|string|array $columnSpan = 'full';
 
-    protected static ?string $heading = 'Artikel Terbaru';
+    protected function getTableHeading(): string
+    {
+        return __('Latest Articles');
+    }
 
     public function table(Table $table): Table
     {
@@ -28,22 +31,23 @@ class LatestPostsWidget extends TableWidget
             ->defaultPaginationPageOption(5)
             ->columns([
                 TextColumn::make('title')
-                    ->label('Judul')
+                    ->label(__('Title'))
                     ->limit(60),
                 TextColumn::make('category.name')
-                    ->label('Kategori')
+                    ->label(__('Category'))
                     ->placeholder('-'),
                 TextColumn::make('status')
+                    ->label(__('Status'))
                     ->badge(),
                 TextColumn::make('user.name')
-                    ->label('Penulis'),
+                    ->label(__('Author')),
                 TextColumn::make('created_at')
-                    ->label('Dibuat')
+                    ->label(__('Created'))
                     ->since(),
             ])
             ->recordActions([
                 Action::make('edit')
-                    ->label('Ubah')
+                    ->label(__('Change'))
                     ->icon(Heroicon::OutlinedPencilSquare)
                     ->url(fn (Post $record): string => PostResource::getUrl('edit', ['record' => $record])),
             ]);

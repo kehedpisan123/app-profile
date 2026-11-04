@@ -20,32 +20,32 @@ class MediaTable
             ->defaultSort('created_at', 'desc')
             ->columns([
                 ImageColumn::make('file_path')
-                    ->label('Pratinjau')
+                    ->label(__('Preview'))
                     ->disk('public')
                     ->state(fn (Media $record): ?string => $record->isImage() ? $record->file_path : null),
                 TextColumn::make('file_name')
-                    ->label('Nama Berkas')
+                    ->label(__('File Name'))
                     ->searchable()
                     ->description(fn (Media $record): ?string => $record->alt_text),
                 TextColumn::make('mime_type')
-                    ->label('Tipe')
+                    ->label(__('Type'))
                     ->badge()
                     ->color('gray'),
                 TextColumn::make('file_size')
-                    ->label('Ukuran')
+                    ->label(__('Size'))
                     ->formatStateUsing(fn (int $state): string => Number::fileSize($state))
                     ->sortable(),
                 TextColumn::make('url')
-                    ->label('URL')
+                    ->label(__('URL'))
                     ->state(fn (Media $record): string => $record->url())
                     ->copyable()
                     ->limit(40)
                     ->toggleable(),
                 TextColumn::make('user.name')
-                    ->label('Diunggah oleh')
+                    ->label(__('Uploaded By'))
                     ->toggleable(),
                 TextColumn::make('created_at')
-                    ->label('Diunggah')
+                    ->label(__('Uploaded'))
                     ->dateTime()
                     ->sortable(),
             ])

@@ -13,36 +13,37 @@ class QuestionInfolist
         return $schema
             ->columns(3)
             ->components([
-                Section::make('Pertanyaan')
+                Section::make(__('Question'))
                     ->columnSpan(2)
                     ->schema([
                         TextEntry::make('subject')
-                            ->label('Judul'),
+                            ->label(__('Title')),
                         TextEntry::make('body')
-                            ->label('Isi Pertanyaan')
+                            ->label(__('Question Body'))
                             ->prose(),
                     ]),
-                Section::make('Penanya')
+                Section::make(__('Asker'))
                     ->columnSpan(1)
                     ->schema([
                         TextEntry::make('status')
+                            ->label(__('Status'))
                             ->badge(),
                         TextEntry::make('topic.name')
-                            ->label('Topik')
+                            ->label(__('Topic'))
                             ->placeholder('-'),
                         TextEntry::make('name')
-                            ->label('Nama'),
+                            ->label(__('Name')),
                         TextEntry::make('email')
-                            ->label('Email')
+                            ->label(__('Email'))
                             ->copyable(),
                         TextEntry::make('phone')
-                            ->label('Telepon')
+                            ->label(__('Phone'))
                             ->placeholder('-'),
                         TextEntry::make('ip_address')
-                            ->label('Alamat IP')
+                            ->label(__('IP Address'))
                             ->placeholder('-'),
                         TextEntry::make('created_at')
-                            ->label('Dikirim')
+                            ->label(__('Submitted'))
                             ->dateTime(),
                     ]),
             ]);

@@ -20,29 +20,29 @@ class MenuForm
     {
         return $schema
             ->components([
-                Section::make('Menu')
+                Section::make(__('Menu'))
                     ->columns(3)
                     ->columnSpanFull()
                     ->schema([
                         TextInput::make('name')
-                            ->label('Nama')
+                            ->label(__('Name'))
                             ->required()
                             ->maxLength(255),
                         Select::make('location')
-                            ->label('Lokasi')
+                            ->label(__('Location'))
                             ->options(MenuLocation::class)
                             ->required(),
                         Toggle::make('is_active')
-                            ->label('Aktif')
+                            ->label(__('Active'))
                             ->default(true)
                             ->inline(false),
                     ]),
-                Section::make('Item Menu')
+                Section::make(__('Menu Items'))
                     ->columnSpanFull()
                     ->schema([
                         self::menuItemsRepeater('rootItems')
                             ->hiddenLabel()
-                            ->addActionLabel('Tambah item menu'),
+                            ->addActionLabel(__('Add menu item')),
                     ]),
             ]);
     }
@@ -52,29 +52,29 @@ class MenuForm
         $fields = [
             Grid::make(4)->schema([
                 TextInput::make('label')
-                    ->label('Label')
+                    ->label(__('Label'))
                     ->required()
                     ->maxLength(255),
                 Select::make('type')
-                    ->label('Jenis Tautan')
+                    ->label(__('Link Type'))
                     ->options(MenuItemType::class)
                     ->default(MenuItemType::Custom)
                     ->required()
                     ->live()
                     ->afterStateUpdated(fn (Set $set) => $set('linkable_id', null)),
                 Select::make('linkable_id')
-                    ->label('Tujuan')
+                    ->label(__('Target'))
                     ->options(fn (Get $get): array => self::linkableOptions($get('type')))
                     ->searchable()
                     ->required(fn (Get $get): bool => self::resolveType($get('type'))?->linkableModel() !== null)
                     ->visible(fn (Get $get): bool => self::resolveType($get('type'))?->linkableModel() !== null),
                 TextInput::make('url')
-                    ->label('URL')
+                    ->label(__('URL'))
                     ->required(fn (Get $get): bool => self::resolveType($get('type')) === MenuItemType::Custom)
                     ->visible(fn (Get $get): bool => self::resolveType($get('type')) === MenuItemType::Custom)
                     ->maxLength(255),
                 Toggle::make('is_active')
-                    ->label('Aktif')
+                    ->label(__('Active'))
                     ->default(true)
                     ->inline(false),
             ]),
@@ -82,8 +82,8 @@ class MenuForm
 
         if ($withChildren) {
             $fields[] = self::menuItemsRepeater('children', withChildren: false)
-                ->label('Sub-menu')
-                ->addActionLabel('Tambah sub-menu')
+                ->label(__('Submenu'))
+                ->addActionLabel(__('Add submenu'))
                 ->defaultItems(0);
         }
 

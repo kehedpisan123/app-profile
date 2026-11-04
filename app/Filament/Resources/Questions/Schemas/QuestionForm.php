@@ -17,42 +17,43 @@ class QuestionForm
         return $schema
             ->columns(3)
             ->components([
-                Section::make('Pertanyaan')
+                Section::make(__('Question'))
                     ->columnSpan(2)
                     ->schema([
                         TextInput::make('subject')
-                            ->label('Judul')
+                            ->label(__('Title'))
                             ->required()
                             ->maxLength(255),
                         Textarea::make('body')
-                            ->label('Isi Pertanyaan')
+                            ->label(__('Question Body'))
                             ->required()
                             ->rows(8),
                     ]),
-                Section::make('Penanya')
+                Section::make(__('Asker'))
                     ->columnSpan(1)
                     ->schema([
                         Select::make('status')
+                            ->label(__('Status'))
                             ->options(QuestionStatus::class)
                             ->disableOptionWhen(fn (string $value): bool => $value === QuestionStatus::Answered->value)
                             ->disabled(fn (?Question $record): bool => $record?->status === QuestionStatus::Answered)
-                            ->helperText('Status "Dijawab" diatur otomatis saat ada jawaban yang diterbitkan.')
+                            ->helperText(__('The "Answered" status is set automatically when an answer is published.'))
                             ->required(),
                         Select::make('topic_id')
-                            ->label('Topik')
+                            ->label(__('Topic'))
                             ->relationship('topic', 'name')
                             ->preload(),
                         TextInput::make('name')
-                            ->label('Nama')
+                            ->label(__('Name'))
                             ->required()
                             ->maxLength(255),
                         TextInput::make('email')
-                            ->label('Email')
+                            ->label(__('Email'))
                             ->email()
                             ->required()
                             ->maxLength(255),
                         TextInput::make('phone')
-                            ->label('Telepon')
+                            ->label(__('Phone'))
                             ->tel()
                             ->maxLength(30),
                     ]),

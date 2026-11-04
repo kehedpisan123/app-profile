@@ -18,7 +18,7 @@ class ListQuestions extends ListRecords
      */
     public function getTabs(): array
     {
-        $tabs = ['all' => Tab::make('Semua')];
+        $tabs = ['all' => Tab::make(__('All'))];
 
         foreach (QuestionStatus::cases() as $status) {
             $tabs[$status->value] = Tab::make($status->getLabel())

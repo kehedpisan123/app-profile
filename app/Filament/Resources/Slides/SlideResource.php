@@ -35,9 +35,15 @@ class SlideResource extends Resource
 
     protected static ?int $navigationSort = 6;
 
-    protected static ?string $modelLabel = 'slide';
+    public static function getModelLabel(): string
+    {
+        return __('slide');
+    }
 
-    protected static ?string $pluralModelLabel = 'slide';
+    public static function getPluralModelLabel(): string
+    {
+        return __('slides');
+    }
 
     protected static ?string $recordTitleAttribute = 'title';
 
@@ -46,19 +52,19 @@ class SlideResource extends Resource
         return $schema
             ->components([
                 TextInput::make('title')
-                    ->label('Judul')
+                    ->label(__('Title'))
                     ->required()
                     ->maxLength(255),
                 TextInput::make('link_url')
-                    ->label('Tautan')
+                    ->label(__('Link'))
                     ->url()
                     ->maxLength(255),
                 Textarea::make('description')
-                    ->label('Deskripsi')
+                    ->label(__('Description'))
                     ->rows(3)
                     ->columnSpanFull(),
                 FileUpload::make('image')
-                    ->label('Gambar')
+                    ->label(__('Image'))
                     ->required()
                     ->image()
                     ->imageEditor()
@@ -68,18 +74,18 @@ class SlideResource extends Resource
                     ->maxSize(4096)
                     ->columnSpanFull(),
                 DatePicker::make('start_date')
-                    ->label('Mulai Tayang'),
+                    ->label(__('Start Date')),
                 DatePicker::make('end_date')
-                    ->label('Selesai Tayang')
+                    ->label(__('End Date'))
                     ->afterOrEqual('start_date'),
                 TextInput::make('sort_order')
-                    ->label('Urutan')
+                    ->label(__('Order'))
                     ->required()
                     ->integer()
                     ->minValue(0)
                     ->default(0),
                 Toggle::make('is_active')
-                    ->label('Aktif')
+                    ->label(__('Active'))
                     ->default(true)
                     ->inline(false),
             ]);
@@ -93,28 +99,28 @@ class SlideResource extends Resource
             ->reorderable('sort_order')
             ->columns([
                 ImageColumn::make('image')
-                    ->label('Gambar')
+                    ->label(__('Image'))
                     ->disk('public'),
                 TextColumn::make('title')
-                    ->label('Judul')
+                    ->label(__('Title'))
                     ->searchable(),
                 TextColumn::make('start_date')
-                    ->label('Mulai')
+                    ->label(__('Starts'))
                     ->date()
                     ->placeholder('-')
                     ->sortable(),
                 TextColumn::make('end_date')
-                    ->label('Selesai')
+                    ->label(__('Ends'))
                     ->date()
                     ->placeholder('-')
                     ->sortable(),
                 IconColumn::make('is_active')
-                    ->label('Aktif')
+                    ->label(__('Active'))
                     ->boolean(),
             ])
             ->filters([
                 TernaryFilter::make('is_active')
-                    ->label('Aktif'),
+                    ->label(__('Active')),
             ])
             ->recordActions([
                 EditAction::make(),

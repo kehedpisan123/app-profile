@@ -26,9 +26,15 @@ class MenuResource extends Resource
 
     protected static ?int $navigationSort = 5;
 
-    protected static ?string $modelLabel = 'menu';
+    public static function getModelLabel(): string
+    {
+        return __('menu');
+    }
 
-    protected static ?string $pluralModelLabel = 'menu';
+    public static function getPluralModelLabel(): string
+    {
+        return __('menus');
+    }
 
     protected static ?string $recordTitleAttribute = 'name';
 

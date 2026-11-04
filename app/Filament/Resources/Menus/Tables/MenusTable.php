@@ -19,26 +19,26 @@ class MenusTable
         return $table
             ->columns([
                 TextColumn::make('name')
-                    ->label('Nama')
+                    ->label(__('Name'))
                     ->searchable(),
                 TextColumn::make('location')
-                    ->label('Lokasi')
+                    ->label(__('Location'))
                     ->badge(),
                 TextColumn::make('items_count')
-                    ->label('Jumlah Item')
+                    ->label(__('Item Count'))
                     ->counts('items'),
                 IconColumn::make('is_active')
-                    ->label('Aktif')
+                    ->label(__('Active'))
                     ->boolean(),
                 TextColumn::make('updated_at')
-                    ->label('Diperbarui')
+                    ->label(__('Updated At'))
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
                 SelectFilter::make('location')
-                    ->label('Lokasi')
+                    ->label(__('Location'))
                     ->options(MenuLocation::class),
             ])
             ->recordActions([

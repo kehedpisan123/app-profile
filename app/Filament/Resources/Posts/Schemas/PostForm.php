@@ -22,11 +22,11 @@ class PostForm
         return $schema
             ->columns(3)
             ->components([
-                Section::make('Konten')
+                Section::make(__('Content'))
                     ->columnSpan(2)
                     ->schema([
                         TextInput::make('title')
-                            ->label('Judul')
+                            ->label(__('Title'))
                             ->required()
                             ->maxLength(255)
                             ->live(onBlur: true)
@@ -36,46 +36,48 @@ class PostForm
                                 }
                             }),
                         TextInput::make('slug')
+                            ->label(__('Slug'))
                             ->required()
                             ->maxLength(255)
                             ->alphaDash()
                             ->unique(),
                         Textarea::make('summary')
-                            ->label('Ringkasan')
+                            ->label(__('Summary'))
                             ->rows(3)
                             ->maxLength(500),
                         RichEditor::make('content')
-                            ->label('Isi Artikel')
+                            ->label(__('Article Body'))
                             ->fileAttachmentsDisk('public')
                             ->fileAttachmentsDirectory('posts/attachments')
                             ->fileAttachmentsVisibility('public'),
                     ]),
-                Section::make('Publikasi')
+                Section::make(__('Publishing'))
                     ->columnSpan(1)
                     ->schema([
                         Select::make('status')
+                            ->label(__('Status'))
                             ->options(PostStatus::class)
                             ->default(PostStatus::Draft)
                             ->required(),
                         DateTimePicker::make('published_at')
-                            ->label('Tanggal Terbit')
-                            ->helperText('Kosongkan untuk memakai waktu saat artikel diterbitkan.'),
+                            ->label(__('Published At'))
+                            ->helperText(__('Leave empty to use the time when the article is published.')),
                         Select::make('category_id')
-                            ->label('Kategori')
+                            ->label(__('Category'))
                             ->relationship('category', 'name')
                             ->searchable()
                             ->preload(),
                         Select::make('user_id')
-                            ->label('Penulis')
+                            ->label(__('Author'))
                             ->relationship('user', 'name')
                             ->default(fn (): ?int => auth()->id())
                             ->searchable()
                             ->preload()
                             ->required(),
                         Toggle::make('is_featured')
-                            ->label('Artikel Unggulan'),
+                            ->label(__('Featured Article')),
                         FileUpload::make('image')
-                            ->label('Gambar Unggulan')
+                            ->label(__('Featured Image'))
                             ->image()
                             ->imageEditor()
                             ->disk('public')

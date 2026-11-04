@@ -26,9 +26,15 @@ class PageResource extends Resource
 
     protected static ?int $navigationSort = 3;
 
-    protected static ?string $modelLabel = 'halaman';
+    public static function getModelLabel(): string
+    {
+        return __('page');
+    }
 
-    protected static ?string $pluralModelLabel = 'halaman';
+    public static function getPluralModelLabel(): string
+    {
+        return __('pages');
+    }
 
     protected static ?string $recordTitleAttribute = 'title';
 

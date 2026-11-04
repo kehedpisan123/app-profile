@@ -33,9 +33,15 @@ class QuestionTopicResource extends Resource
 
     protected static ?int $navigationSort = 2;
 
-    protected static ?string $modelLabel = 'topik pertanyaan';
+    public static function getModelLabel(): string
+    {
+        return __('question topic');
+    }
 
-    protected static ?string $pluralModelLabel = 'topik pertanyaan';
+    public static function getPluralModelLabel(): string
+    {
+        return __('question topics');
+    }
 
     protected static ?string $recordTitleAttribute = 'name';
 
@@ -44,7 +50,7 @@ class QuestionTopicResource extends Resource
         return $schema
             ->components([
                 TextInput::make('name')
-                    ->label('Nama')
+                    ->label(__('Name'))
                     ->required()
                     ->maxLength(255)
                     ->live(onBlur: true)
@@ -54,24 +60,25 @@ class QuestionTopicResource extends Resource
                         }
                     }),
                 TextInput::make('slug')
+                    ->label(__('Slug'))
                     ->required()
                     ->maxLength(255)
                     ->alphaDash()
                     ->unique(),
                 Textarea::make('description')
-                    ->label('Deskripsi')
+                    ->label(__('Description'))
                     ->columnSpanFull(),
                 TextInput::make('icon')
-                    ->label('Ikon')
+                    ->label(__('Icon'))
                     ->maxLength(100),
                 TextInput::make('sort_order')
-                    ->label('Urutan')
+                    ->label(__('Order'))
                     ->required()
                     ->integer()
                     ->minValue(0)
                     ->default(0),
                 Toggle::make('is_active')
-                    ->label('Aktif')
+                    ->label(__('Active'))
                     ->default(true),
             ]);
     }
@@ -84,16 +91,16 @@ class QuestionTopicResource extends Resource
             ->reorderable('sort_order')
             ->columns([
                 TextColumn::make('name')
-                    ->label('Nama')
+                    ->label(__('Name'))
                     ->searchable(),
                 TextColumn::make('questions_count')
-                    ->label('Pertanyaan')
+                    ->label(__('Questions'))
                     ->counts('questions'),
                 TextColumn::make('faqs_count')
-                    ->label('FAQ')
+                    ->label(__('FAQ'))
                     ->counts('faqs'),
                 IconColumn::make('is_active')
-                    ->label('Aktif')
+                    ->label(__('Active'))
                     ->boolean(),
             ])
             ->recordActions([

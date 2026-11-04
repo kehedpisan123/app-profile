@@ -33,9 +33,15 @@ class FaqResource extends Resource
 
     protected static ?int $navigationSort = 3;
 
-    protected static ?string $modelLabel = 'FAQ';
+    public static function getModelLabel(): string
+    {
+        return __('FAQ');
+    }
 
-    protected static ?string $pluralModelLabel = 'FAQ';
+    public static function getPluralModelLabel(): string
+    {
+        return __('FAQs');
+    }
 
     protected static ?string $recordTitleAttribute = 'question';
 
@@ -44,12 +50,12 @@ class FaqResource extends Resource
         return $schema
             ->components([
                 TextInput::make('question')
-                    ->label('Pertanyaan')
+                    ->label(__('Question'))
                     ->required()
                     ->maxLength(255)
                     ->columnSpanFull(),
                 RichEditor::make('answer')
-                    ->label('Jawaban')
+                    ->label(__('Answer'))
                     ->required()
                     ->toolbarButtons([
                         ['bold', 'italic', 'underline', 'link'],
@@ -58,17 +64,17 @@ class FaqResource extends Resource
                     ])
                     ->columnSpanFull(),
                 Select::make('topic_id')
-                    ->label('Topik')
+                    ->label(__('Topic'))
                     ->relationship('topic', 'name')
                     ->preload(),
                 TextInput::make('sort_order')
-                    ->label('Urutan')
+                    ->label(__('Order'))
                     ->required()
                     ->integer()
                     ->minValue(0)
                     ->default(0),
                 Toggle::make('is_active')
-                    ->label('Aktif')
+                    ->label(__('Active'))
                     ->default(true),
             ]);
     }
@@ -81,19 +87,19 @@ class FaqResource extends Resource
             ->reorderable('sort_order')
             ->columns([
                 TextColumn::make('question')
-                    ->label('Pertanyaan')
+                    ->label(__('Question'))
                     ->searchable()
                     ->wrap(),
                 TextColumn::make('topic.name')
-                    ->label('Topik')
+                    ->label(__('Topic'))
                     ->placeholder('-'),
                 IconColumn::make('is_active')
-                    ->label('Aktif')
+                    ->label(__('Active'))
                     ->boolean(),
             ])
             ->filters([
                 SelectFilter::make('topic')
-                    ->label('Topik')
+                    ->label(__('Topic'))
                     ->relationship('topic', 'name')
                     ->preload(),
             ])
