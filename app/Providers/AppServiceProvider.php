@@ -3,6 +3,8 @@
 namespace App\Providers;
 
 use App\Enums\MenuItemType;
+use BezhanSalleh\LanguageSwitch\Enums\Placement;
+use BezhanSalleh\LanguageSwitch\LanguageSwitch;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Http\Request;
@@ -39,6 +41,17 @@ class AppServiceProvider extends ServiceProvider
                 Limit::perMinute(3)->by($request->ip()),
                 Limit::perDay(20)->by($request->ip()),
             ];
+        });
+
+        LanguageSwitch::configureUsing(function (LanguageSwitch $switch): void {
+            $switch
+                ->locales(['id', 'en'])
+                ->labels([
+                    'id' => 'Bahasa Indonesia',
+                    'en' => 'English',
+                ])
+                ->visible(outsidePanels: true)
+                ->outsidePanelPlacement(Placement::TopEnd);
         });
     }
 }

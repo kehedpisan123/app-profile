@@ -41,6 +41,23 @@ class AdminPanelTest extends TestCase
             ->assertOk();
     }
 
+    public function test_login_page_shows_language_switch(): void
+    {
+        $this->get('/admin/login')
+            ->assertOk()
+            ->assertSee('Bahasa Indonesia')
+            ->assertSee('English');
+    }
+
+    public function test_dashboard_shows_language_switch(): void
+    {
+        $this->actingAs(User::factory()->admin()->create())
+            ->get('/admin')
+            ->assertOk()
+            ->assertSee('Bahasa Indonesia')
+            ->assertSee('English');
+    }
+
     public function test_latest_questions_widget_lists_only_pending_questions(): void
     {
         $pending = Question::factory()->create();
