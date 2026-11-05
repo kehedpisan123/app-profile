@@ -3,6 +3,7 @@
 namespace App\Filament\Resources\Questions\Tables;
 
 use App\Filament\Resources\Questions\Actions\RejectQuestionAction;
+use App\Filament\Support\TranslatableOptionLabel;
 use App\Models\Question;
 use Filament\Actions\ActionGroup;
 use Filament\Actions\BulkActionGroup;
@@ -48,6 +49,7 @@ class QuestionsTable
                 SelectFilter::make('topic')
                     ->label(__('Topic'))
                     ->relationship('topic', 'name')
+                    ->getOptionLabelFromRecordUsing(TranslatableOptionLabel::for('name'))
                     ->preload(),
             ])
             ->recordActions([

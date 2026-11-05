@@ -3,6 +3,7 @@
 namespace App\Filament\Resources\Questions\Schemas;
 
 use App\Enums\QuestionStatus;
+use App\Filament\Support\TranslatableOptionLabel;
 use App\Models\Question;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
@@ -42,6 +43,7 @@ class QuestionForm
                         Select::make('topic_id')
                             ->label(__('Topic'))
                             ->relationship('topic', 'name')
+                            ->getOptionLabelFromRecordUsing(TranslatableOptionLabel::for('name'))
                             ->preload(),
                         TextInput::make('name')
                             ->label(__('Name'))

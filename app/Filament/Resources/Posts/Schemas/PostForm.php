@@ -3,6 +3,7 @@
 namespace App\Filament\Resources\Posts\Schemas;
 
 use App\Enums\PostStatus;
+use App\Filament\Support\TranslatableOptionLabel;
 use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\RichEditor;
@@ -65,6 +66,7 @@ class PostForm
                         Select::make('category_id')
                             ->label(__('Category'))
                             ->relationship('category', 'name')
+                            ->getOptionLabelFromRecordUsing(TranslatableOptionLabel::for('name'))
                             ->searchable()
                             ->preload(),
                         Select::make('user_id')

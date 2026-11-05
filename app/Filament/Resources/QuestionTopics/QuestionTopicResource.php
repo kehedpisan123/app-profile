@@ -21,10 +21,13 @@ use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Support\Str;
+use LaraZeus\SpatieTranslatable\Resources\Concerns\Translatable;
 use UnitEnum;
 
 class QuestionTopicResource extends Resource
 {
+    use Translatable;
+
     protected static ?string $model = QuestionTopic::class;
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedHashtag;

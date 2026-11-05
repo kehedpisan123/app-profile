@@ -37,7 +37,7 @@ class QuestionControllerTest extends TestCase
 
     public function test_store_rejects_empty_payload_with_422(): void
     {
-        $response = $this->postJson(route('api.v1.questions.store'), []);
+        $response = $this->postJson(route('api.v1.questions.store'), [], ['Accept-Language' => 'id']);
 
         $response->assertUnprocessable()
             ->assertJsonValidationErrors(['topic_id', 'name', 'email', 'subject', 'body'])
@@ -51,7 +51,7 @@ class QuestionControllerTest extends TestCase
     {
         $topic = QuestionTopic::factory()->inactive()->create();
 
-        $response = $this->postJson(route('api.v1.questions.store'), $this->validPayload($topic));
+        $response = $this->postJson(route('api.v1.questions.store'), $this->validPayload($topic), ['Accept-Language' => 'id']);
 
         $response->assertUnprocessable()
             ->assertJsonPath('errors.topic_id.0', 'Topik yang dipilih tidak valid.');
@@ -64,7 +64,7 @@ class QuestionControllerTest extends TestCase
         $response = $this->postJson(route('api.v1.questions.store'), [
             ...$this->validPayload($topic),
             'email' => 'bukan-email',
-        ]);
+        ], ['Accept-Language' => 'id']);
 
         $response->assertUnprocessable()
             ->assertJsonPath('errors.email.0', 'Surel harus berupa alamat surel yang valid.');

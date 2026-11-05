@@ -3,6 +3,7 @@
 namespace App\Filament\Resources\Posts\Tables;
 
 use App\Enums\PostStatus;
+use App\Filament\Support\TranslatableOptionLabel;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteAction;
 use Filament\Actions\DeleteBulkAction;
@@ -65,6 +66,7 @@ class PostsTable
                 SelectFilter::make('category')
                     ->label(__('Category'))
                     ->relationship('category', 'name')
+                    ->getOptionLabelFromRecordUsing(TranslatableOptionLabel::for('name'))
                     ->preload(),
                 TernaryFilter::make('is_featured')
                     ->label(__('Featured')),

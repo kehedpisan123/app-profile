@@ -49,6 +49,10 @@ class MediaForm
      */
     public static function withFileDetails(array $data): array
     {
+        if (! is_string($data['file_path'] ?? null) || $data['file_path'] === '') {
+            return $data;
+        }
+
         $storage = Storage::disk(self::DISK);
 
         $data['disk'] = self::DISK;

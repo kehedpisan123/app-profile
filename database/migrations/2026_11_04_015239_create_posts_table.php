@@ -15,10 +15,10 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->foreignId('category_id')->nullable()->constrained()->nullOnDelete();
-            $table->string('title');
+            $table->json('title');
             $table->string('slug')->unique();
-            $table->text('summary')->nullable();
-            $table->longText('content')->nullable();
+            $table->json('summary')->nullable();
+            $table->json('content')->nullable();
             $table->string('image')->nullable();
             $table->string('status')->default('draft');
             $table->timestamp('published_at')->nullable();

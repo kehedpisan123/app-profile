@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('question_topics', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->json('name');
             $table->string('slug')->unique();
-            $table->text('description')->nullable();
+            $table->json('description')->nullable();
             $table->string('icon')->nullable();
             $table->unsignedInteger('sort_order')->default(0);
             $table->boolean('is_active')->default(true);

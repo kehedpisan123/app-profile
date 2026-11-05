@@ -84,6 +84,30 @@ class PostControllerTest extends TestCase
         $this->assertSame(1, $post->fresh()->view_count);
     }
 
+    public function test_show_returns_english_title_when_lang_is_en(): void
+    {
+        $post = Post::factory()->published()->create([
+            'title' => ['id' => 'Judul Indonesia', 'en' => 'English Title'],
+            'summary' => ['id' => 'Ringkas', 'en' => 'Short summary'],
+        ]);
+
+        $this->getJson(route('api.v1.posts.show', ['post' => $post, 'lang' => 'en']))
+            ->assertOk()
+            ->assertJsonPath('data.title', 'English Title')
+            ->assertJsonPath('data.summary', 'Short summary');
+    }
+
+    public function test_show_falls_back_to_indonesian_title_when_english_is_missing(): void
+    {
+        $post = Post::factory()->published()->create([
+            'title' => ['id' => 'Hanya Indonesia'],
+        ]);
+
+        $this->getJson(route('api.v1.posts.show', ['post' => $post, 'lang' => 'en']))
+            ->assertOk()
+            ->assertJsonPath('data.title', 'Hanya Indonesia');
+    }
+
     public function test_show_returns_404_for_draft_post(): void
     {
         $post = Post::factory()->create();

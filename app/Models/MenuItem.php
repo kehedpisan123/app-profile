@@ -12,12 +12,18 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
+use Spatie\Translatable\HasTranslations;
 
 #[Fillable(['menu_id', 'parent_id', 'label', 'url', 'type', 'linkable_id', 'sort_order', 'is_active'])]
 class MenuItem extends Model
 {
     /** @use HasFactory<MenuItemFactory> */
     use HasFactory;
+
+    use HasTranslations;
+
+    /** @var array<int, string> */
+    public array $translatable = ['label'];
 
     /**
      * @var array<string, mixed>

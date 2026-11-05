@@ -19,6 +19,7 @@ use Illuminate\Foundation\Http\Middleware\PreventRequestForgery;
 use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
+use LaraZeus\SpatieTranslatable\SpatieTranslatablePlugin;
 
 class AdminPanelProvider extends PanelProvider
 {
@@ -58,6 +59,16 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->authMiddleware([
                 Authenticate::class,
-            ]);
+            ])
+            ->plugin(
+                SpatieTranslatablePlugin::make()
+                    ->defaultLocales(['id', 'en'])
+                    ->persist()
+                    ->getLocaleLabelUsing(fn (string $locale): string => match ($locale) {
+                        'id' => 'Bahasa Indonesia',
+                        'en' => 'English',
+                        default => $locale,
+                    }),
+            );
     }
 }

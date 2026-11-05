@@ -1,0 +1,83 @@
+{
+  "@@locale": "id",
+  "home": "Beranda",
+  "articles": "Artikel",
+  "faq": "FAQ",
+  "questions": "Pertanyaan",
+  "ask": "Ajukan pertanyaan",
+  "search": "Cari",
+  "searchHint": "Cari judul atau ringkasan",
+  "featured": "Unggulan",
+  "latest": "Terbaru",
+  "categories": "Kategori",
+  "allCategories": "Semua kategori",
+  "readMore": "Baca selengkapnya",
+  "allArticles": "Semua artikel",
+  "emptyPosts": "Belum ada artikel.",
+  "emptyFaqs": "Belum ada pertanyaan umum.",
+  "emptyQuestions": "Belum ada pertanyaan yang sudah dijawab.",
+  "errorTitle": "Tidak dapat memuat data",
+  "retry": "Coba lagi",
+  "contact": "Kontak",
+  "address": "Alamat",
+  "phone": "Telepon",
+  "email": "Email",
+  "whatsapp": "WhatsApp",
+  "officeHours": "Jam layanan",
+  "previous": "Sebelumnya",
+  "next": "Berikutnya",
+  "pageOf": "Halaman {page} dari {pages}",
+  "@pageOf": {
+    "placeholders": {
+      "page": {"type": "int"},
+      "pages": {"type": "int"}
+    }
+  },
+  "byAuthor": "Oleh {name}",
+  "@byAuthor": {
+    "placeholders": {
+      "name": {"type": "String"}
+    }
+  },
+  "views": "{count} kali dilihat",
+  "@views": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "resultCount": "{count} hasil",
+  "@resultCount": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "notFound": "Halaman tidak ditemukan",
+  "notFoundBody": "Tautan ini tidak ada, atau kontennya belum diterbitkan.",
+  "questionsClosed": "Penerimaan pertanyaan sedang ditutup.",
+  "submit": "Kirim pertanyaan",
+  "successTitle": "Pertanyaan terkirim",
+  "successBody": "Pertanyaan Anda telah kami terima dan akan segera ditinjau.",
+  "backToQuestions": "Kembali ke daftar",
+  "required": "Wajib diisi",
+  "invalidEmail": "Masukkan email yang valid",
+  "invalidPhone": "Nomor telepon tidak valid",
+  "bodyTooShort": "Isi pertanyaan minimal 10 karakter",
+  "name": "Nama",
+  "topic": "Topik",
+  "subject": "Subjek",
+  "questionBody": "Isi pertanyaan",
+  "optional": "Opsional",
+  "answers": "Jawaban",
+  "askedOn": "Diajukan {date}",
+  "@askedOn": {
+    "placeholders": {
+      "date": {"type": "String"}
+    }
+  },
+  "menu": "Menu",
+  "language": "Bahasa",
+  "indonesian": "Bahasa Indonesia",
+  "english": "English",
+  "footerNote": "Situs informasi dan layanan publik.",
+  "clearSearch": "Hapus pencarian"
+}

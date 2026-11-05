@@ -4,6 +4,7 @@ namespace App\Filament\Resources\Menus\Schemas;
 
 use App\Enums\MenuItemType;
 use App\Enums\MenuLocation;
+use App\Filament\Support\TranslatableOptionLabel;
 use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
@@ -13,6 +14,7 @@ use Filament\Schemas\Components\Section;
 use Filament\Schemas\Components\Utilities\Get;
 use Filament\Schemas\Components\Utilities\Set;
 use Filament\Schemas\Schema;
+use Illuminate\Database\Eloquent\Model;
 
 class MenuForm
 {
@@ -109,14 +111,18 @@ class MenuForm
     {
         $type = self::resolveType($type);
         $model = $type?->linkableModel();
+        $attribute = $type?->linkableTitleAttribute();
 
-        if ($model === null) {
+        if ($model === null || $attribute === null) {
             return [];
         }
 
         return $model::query()
-            ->orderBy($type->linkableTitleAttribute())
-            ->pluck($type->linkableTitleAttribute(), 'id')
+            ->orderBy($attribute.'->'.app()->getLocale())
+            ->get()
+            ->mapWithKeys(fn (Model $record): array => [
+                $record->getKey() => TranslatableOptionLabel::for($attribute)($record),
+            ])
             ->all();
     }
 }

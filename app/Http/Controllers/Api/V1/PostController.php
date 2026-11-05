@@ -22,9 +22,10 @@ class PostController extends Controller
             ->when($request->filled('category'), fn (Builder $query) => $query->whereRelation('category', 'slug', $request->string('category')->toString()))
             ->when($request->has('featured'), fn (Builder $query) => $query->where('is_featured', $request->boolean('featured')))
             ->when($request->filled('search'), function (Builder $query) use ($request): void {
-                $keyword = '%'.$request->string('search')->trim()->toString().'%';
-
-                $query->where(fn (Builder $query) => $query->where('title', 'like', $keyword)->orWhere('summary', 'like', $keyword));
+                $query->whereTranslationLike(
+                    ['title', 'summary'],
+                    $request->string('search')->trim()->toString(),
+                );
             })
             ->latest('published_at')
             ->paginate(min(max($request->integer('per_page', 10), 1), 50))

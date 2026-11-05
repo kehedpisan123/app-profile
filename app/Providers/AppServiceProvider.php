@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\ServiceProvider;
+use Spatie\Translatable\Translatable;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -26,6 +27,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        $this->app->make(Translatable::class)
+            ->fallback(fallbackLocale: 'id', fallbackAny: true)
+            ->locales(['id', 'en']);
+
         Relation::morphMap([
             MenuItemType::Page->value => MenuItemType::Page->linkableModel(),
             MenuItemType::Post->value => MenuItemType::Post->linkableModel(),

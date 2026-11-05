@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('file_path');
             $table->string('mime_type')->nullable();
             $table->unsignedBigInteger('file_size')->default(0);
-            $table->string('alt_text')->nullable();
+            $table->json('alt_text')->nullable();
             $table->string('disk')->default('public');
             $table->timestamps();
         });

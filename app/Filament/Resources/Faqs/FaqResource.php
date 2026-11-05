@@ -4,6 +4,7 @@ namespace App\Filament\Resources\Faqs;
 
 use App\Enums\NavigationGroup;
 use App\Filament\Resources\Faqs\Pages\ManageFaqs;
+use App\Filament\Support\TranslatableOptionLabel;
 use App\Models\Faq;
 use BackedEnum;
 use Filament\Actions\BulkActionGroup;
@@ -21,10 +22,13 @@ use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
+use LaraZeus\SpatieTranslatable\Resources\Concerns\Translatable;
 use UnitEnum;
 
 class FaqResource extends Resource
 {
+    use Translatable;
+
     protected static ?string $model = Faq::class;
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedQuestionMarkCircle;
@@ -66,6 +70,7 @@ class FaqResource extends Resource
                 Select::make('topic_id')
                     ->label(__('Topic'))
                     ->relationship('topic', 'name')
+                    ->getOptionLabelFromRecordUsing(TranslatableOptionLabel::for('name'))
                     ->preload(),
                 TextInput::make('sort_order')
                     ->label(__('Order'))
@@ -101,6 +106,7 @@ class FaqResource extends Resource
                 SelectFilter::make('topic')
                     ->label(__('Topic'))
                     ->relationship('topic', 'name')
+                    ->getOptionLabelFromRecordUsing(TranslatableOptionLabel::for('name'))
                     ->preload(),
             ])
             ->recordActions([

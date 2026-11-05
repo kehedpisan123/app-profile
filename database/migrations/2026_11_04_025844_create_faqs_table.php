@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('faqs', function (Blueprint $table) {
             $table->id();
             $table->foreignId('topic_id')->nullable()->constrained('question_topics')->nullOnDelete();
-            $table->string('question');
-            $table->longText('answer');
+            $table->json('question');
+            $table->json('answer');
             $table->unsignedInteger('sort_order')->default(0);
             $table->boolean('is_active')->default(true);
             $table->timestamps();

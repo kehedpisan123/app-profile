@@ -1,0 +1,83 @@
+{
+  "@@locale": "en",
+  "home": "Home",
+  "articles": "Articles",
+  "faq": "FAQ",
+  "questions": "Questions",
+  "ask": "Ask a question",
+  "search": "Search",
+  "searchHint": "Search titles or summaries",
+  "featured": "Featured",
+  "latest": "Latest",
+  "categories": "Categories",
+  "allCategories": "All categories",
+  "readMore": "Read more",
+  "allArticles": "All articles",
+  "emptyPosts": "There are no articles yet.",
+  "emptyFaqs": "There are no FAQs yet.",
+  "emptyQuestions": "There are no answered questions yet.",
+  "errorTitle": "The data could not be loaded",
+  "retry": "Try again",
+  "contact": "Contact",
+  "address": "Address",
+  "phone": "Phone",
+  "email": "Email",
+  "whatsapp": "WhatsApp",
+  "officeHours": "Office hours",
+  "previous": "Previous",
+  "next": "Next",
+  "pageOf": "Page {page} of {pages}",
+  "@pageOf": {
+    "placeholders": {
+      "page": {"type": "int"},
+      "pages": {"type": "int"}
+    }
+  },
+  "byAuthor": "By {name}",
+  "@byAuthor": {
+    "placeholders": {
+      "name": {"type": "String"}
+    }
+  },
+  "views": "{count} views",
+  "@views": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "resultCount": "{count} results",
+  "@resultCount": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "notFound": "Page not found",
+  "notFoundBody": "This link does not exist, or the content is not published yet.",
+  "questionsClosed": "Questions are not being accepted right now.",
+  "submit": "Send question",
+  "successTitle": "Question sent",
+  "successBody": "We have received your question and will review it shortly.",
+  "backToQuestions": "Back to the list",
+  "required": "Required",
+  "invalidEmail": "Enter a valid email address",
+  "invalidPhone": "The phone number is not valid",
+  "bodyTooShort": "The question must be at least 10 characters",
+  "name": "Name",
+  "topic": "Topic",
+  "subject": "Subject",
+  "questionBody": "Question",
+  "optional": "Optional",
+  "answers": "Answers",
+  "askedOn": "Asked {date}",
+  "@askedOn": {
+    "placeholders": {
+      "date": {"type": "String"}
+    }
+  },
+  "menu": "Menu",
+  "language": "Language",
+  "indonesian": "Bahasa Indonesia",
+  "english": "English",
+  "footerNote": "Public information and services.",
+  "clearSearch": "Clear search"
+}
